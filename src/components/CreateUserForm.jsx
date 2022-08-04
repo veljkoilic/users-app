@@ -28,9 +28,13 @@ export const CreateUserForm = () => {
       if (res.status === 201) {
         console.log("User Created");
         console.log(res.data);
-        dispatch(addUser(res.data))
+        dispatch(addUser(res.data));
       }
     });
+    setFirstname("");
+    setLastname("");
+    setEmail("");
+    setBirthday("");
   };
   return (
     <Container>
@@ -72,6 +76,8 @@ export const CreateUserForm = () => {
           }}
           id="email"
         />
+        <label>Birthday</label>
+
         <DatePicker selected={birthday} dateFormat="dd/MM/yyyy" onChange={(date) => setBirthday(date)} />
         <button type="submit" className="btn btn-block">
           Create
