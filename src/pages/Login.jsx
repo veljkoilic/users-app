@@ -19,7 +19,6 @@ export const Login = () => {
         password,
       })
       .then(function (response) {
-        console.log(response.data);
         setError(false);
         localStorage.setItem("token", JSON.stringify(response.data.token));
         //since the token cant be decoded, and its just a random string with the id appended as the last digit
@@ -28,7 +27,6 @@ export const Login = () => {
         axios
           .get(`https://reqres.in/api/users/${extractedID}`)
           .then((response) => {
-            console.log(response.data.data);
             dispatch(setUser(response.data.data));
           })
           .catch((err) => {
@@ -37,7 +35,6 @@ export const Login = () => {
         navigate("/");
       })
       .catch(function (error) {
-        console.log(error);
         setError(error.response.data.error);
       });
   };

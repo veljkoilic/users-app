@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUser } from "../redux/userSlice";
 
 export const Register = () => {
@@ -11,7 +11,6 @@ export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const user = useSelector((state) => state.user.user);
   const onSubmitHandle = (e) => {
     e.preventDefault();
     axios
@@ -20,13 +19,11 @@ export const Register = () => {
         password,
       })
       .then(function (response) {
-        console.log(response.data);
         setError(false);
         localStorage.setItem("token", JSON.stringify(response.data.token));
         axios
           .get(`https://reqres.in/api/users/${response.data.id}`)
           .then((response) => {
-            console.log(response.data.data);
             dispatch(setUser(response.data.data));
           })
           .catch((err) => {
@@ -35,7 +32,6 @@ export const Register = () => {
         navigate("/");
       })
       .catch(function (error) {
-        console.log(error);
         setError(error.response.data.error);
       });
   };
