@@ -11,7 +11,7 @@ export const usersSlice = createSlice({
      state.users = actions.payload
     },
     addUser: (state, actions) => {
-      state.users.push(actions.payload)
+      state.users.unshift(actions.payload)
     }
   },
 })
